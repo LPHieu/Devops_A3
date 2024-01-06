@@ -7,7 +7,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE_ME"
+                    "CHANGE"
                 ],
                 "Tags": [
                     {
@@ -23,8 +23,8 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://TOKENHERE@github.com/pigergast/Devops_A3.git\n",
-                                "cd Devops_A3/CloudFormation/\n",
+                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x jenkinsInstall.sh\n",
                                 "./jenkinsInstall.sh\n"
                               ]
@@ -40,7 +40,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE_ME"
+                    "CHANGE"
                 ],
                 "Tags": [
                     {
@@ -56,8 +56,8 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://TOKENHERE@github.com/pigergast/Devops_A3.git\n",
-                                "cd Devops_A3/CloudFormation/\n",
+                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x ansibleInstall.sh\n",
                                 "./ansibleInstall.sh\n"
                               ]
