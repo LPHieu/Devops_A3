@@ -23,7 +23,7 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://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@github.com/pigergast/COSC2767_Assignment2_Scripts_s3877375.git\n",
+                                "git clone https://TOKENHERE@github.com/pigergast/COSC2767_Assignment2_Scripts_s3877375.git\n",
                                 "cd COSC2767_Assignment2_Scripts_s3877375/Scripts/AdvancedRequirement/Jenkins/\n",
                                 "chmod +x jenkins_install.sh\n",
                                 "./jenkins_install.sh\n"
