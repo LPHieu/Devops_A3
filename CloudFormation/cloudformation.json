@@ -23,11 +23,10 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://TOKENHERE@github.com/pigergast/COSC2767_Assignment2_Scripts_s3877375.git\n",
-                                "cd COSC2767_Assignment2_Scripts_s3877375/Scripts/AdvancedRequirement/Jenkins/\n",
-                                "chmod +x jenkins_install.sh\n",
-                                "./jenkins_install.sh\n"
-                                
+                                "git clone https://TOKENHERE@github.com/pigergast/Devops_A3.git\n",
+                                "cd Devops_A3/CloudFormation/\n",
+                                "chmod +x jenkinsInstall.sh\n",
+                                "./jenkinsInstall.sh\n"
                               ]
                         ]
                     }
@@ -57,10 +56,10 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://TOKENHERE@github.com/pigergast/COSC2767_Assignment2_Scripts_s3877375.git\n",
-                                "cd COSC2767_Assignment2_Scripts_s3877375/Scripts/AdvancedRequirement/Ansible/\n",
-                                "chmod +x ansible_install.sh\n",
-                                "./ansible_install.sh\n"
+                                "git clone https://TOKENHERE@github.com/pigergast/Devops_A3.git\n",
+                                "cd Devops_A3/CloudFormation/\n",
+                                "chmod +x ansibleInstall.sh\n",
+                                "./ansibleInstall.sh\n"
                               ]
                         ]
                     }
