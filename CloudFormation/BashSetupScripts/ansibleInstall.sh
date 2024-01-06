@@ -18,8 +18,8 @@ sudo yum install docker -y
 #add ansibleadmin to docker group
 sudo usermod -aG docker ansibleadmin
 
-#change hostname to ansible-server in /etc/hostname
-echo "ansible-server" > /etc/hostname
+# #change hostname to ansible-server in /etc/hostname
+# echo "ansible-server" > /etc/hostname
 
-#reboot
-reboot
+# #reboot
+# reboot

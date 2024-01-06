@@ -32,8 +32,8 @@ java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD install-plug
 
 service jenkins restart
 
-#change hostname to jenkins-server in /etc/hostname
-echo "jenkins-server" > /etc/hostname
+# #change hostname to jenkins-server in /etc/hostname
+# echo "jenkins-server" > /etc/hostname
 
-#reboot
-reboot
+# #reboot
+# reboot
