@@ -1,3 +1,13 @@
+# PHP/Apache server
+Expose port 80 for web access
+
+# MariaDB server
+Expose 3306 for database access
+
+
+
+
+
 nano /var/log/cloud-init-output.log for debugging..
 
 # START JENKINS, AND ALSO DOCKER IN BOTH DOCKER AND ANSIBLE SERVER
