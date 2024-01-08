@@ -1,3 +1,4 @@
+#!/bin/bash
 useradd ansibleadmin
 #set password for ansibleadmin as 123
 echo "123" | passwd --stdin ansibleadmin

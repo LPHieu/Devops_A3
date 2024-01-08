@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Install and start MariaDB server
 yum install -y mariadb-server
 service mariadb start
@@ -7,9 +9,11 @@ systemctl enable mariadb
 # MySQL commands
 MYSQL_COMMAND="mysql"
 
+ADDRESS="%"
+
 $MYSQL_COMMAND << EOF   
-CREATE USER 'db_admin'@'localhost' IDENTIFIED BY 'rmit_password';
-GRANT ALL PRIVILEGES ON *.* TO 'db_admin'@'localhost';
+CREATE USER 'db_admin'@'$ADDRESS' IDENTIFIED BY 'rmit_password';
+GRANT ALL PRIVILEGES ON *.* TO 'db_admin'@'$ADDRESS';
 FLUSH PRIVILEGES;
 
 CREATE DATABASE rmit_store_db;

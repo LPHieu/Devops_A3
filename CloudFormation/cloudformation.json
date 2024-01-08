@@ -65,6 +65,73 @@
                     }
                 }
             }
+        },
+        "MariaDB": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": "ami-00b8917ae86a424c9",
+                "InstanceType": "t2.micro",
+                "KeyName": "asm3_kp",
+                "SecurityGroupIds": [
+                    "CHANGE"
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MariaDB-Server-A3"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash\n",
+                                "yum install git -y\n",
+                                "cd ~\n",
+                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "cd Devops_A3/CloudFormation/BashSetupScripts\n",
+                                "chmod +x mariaDBInstall.sh\n",
+                                "./mariaDBInstall.sh\n"
+                              ]
+                        ]
+                    }
+                }
+            }
+        },
+        "Apache": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": "ami-00b8917ae86a424c9",
+                "InstanceType": "t2.micro",
+                "KeyName": "asm3_kp",
+                "SecurityGroupIds": [
+                    "CHANGE"
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "ApachePHP-Server-A3"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash\n",
+                                "yum install git -y\n",
+                                "cd ~\n",
+                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "cd Devops_A3/CloudFormation/BashSetupScripts\n",
+                                "chmod +x apachePHPInstall.sh\n",
+                                "./apachePHPInstall.sh\n"
+                              ]
+                        ]
+                    }
+                }
+            }
         }
+    }
     }
 }
