@@ -132,7 +132,7 @@
                 "Tags": [
                     {
                         "Key": "Name",
-                        "Value": "ApachePHP-Server-A3"
+                        "Value": "ApachePHP-Prod-Server-A3"
                     }
                 ],
                 "UserData": {
@@ -172,7 +172,7 @@
                 "Tags": [
                     {
                         "Key": "Name",
-                        "Value": "ApachePHP-Server-A3"
+                        "Value": "ApachePHP-Test-Server-A3"
                     }
                 ],
                 "UserData": {
