@@ -39,11 +39,24 @@ echo $serverDBIp >> /etc/ansible/hosts
 echo "[jenkinsserver]" >> /etc/ansible/hosts
 echo $jenkinsServerIp >> /etc/ansible/hosts
 
+
 #Move ansible folder to /home/ansibleadmin
 cp -r ~/Devops_A3/Ansible /home/ansibleadmin
 
 #Move Dockerfiles to /home/ansibleadmin
 cp -r ~/Devops_A3/DockerFiles /home/ansibleadmin
+
+#wait other instance to be done
+sleep 60
+
+#copy ssh key to all hosts
+sudo su - ansibleadmin
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
+echo "123" | sshpass ssh-copy-id $jenkinsServerIp
+echo "123" | sshpass ssh-copy-id $dockerProdIp
+echo "123" | sshpass ssh-copy-id $dockerTestIp
+echo "123" | sshpass ssh-copy-id $serverDBIp
+
 
 # #change hostname to ansible-server in /etc/hostname
 # echo "ansible-server" > /etc/hostname

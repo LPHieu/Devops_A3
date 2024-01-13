@@ -5,6 +5,12 @@ yum install -y mariadb-server
 service mariadb start
 systemctl enable mariadb
 
+#in /etc/ssh/sshd_config, change "PasswordAuthentication no" to "PasswordAuthentication yes" to turn on password authentication in ssh
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+
+useradd ansibleadmin
+#set password for ansibleadmin as 123
+echo "123" | passwd --stdin ansibleadmin
 
 # MySQL commands
 MYSQL_COMMAND="mysql"
