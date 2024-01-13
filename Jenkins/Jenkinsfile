@@ -1,27 +1,42 @@
 pipeline {
+    agent any  // Specify the node where the pipeline should run
+
     triggers {
         pollSCM('* * * * *')
     }
-    stages {
-        stage('Pull code from git repository') { // for display purposes
-            checkout(scm : [$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/vvd0502/COSC2767-RMIT-Store']]], poll: true)
-        }
-        stage('Send files over SSH') {
-            sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
-            DBIP='172.31.40.138'
-            BUILDFILEPATH='Ansible/buildAndPushTest.yml'
-            PULLFILEPATH='Ansible/pullAndRunTest.yml'
 
-            sed -i "s/'db_admin'@'localhost'/'db_admin'@'${DBIP}'/g" webapp/sql-scripts/sql-script.sql && \
-            sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php && \
-            sed -i 's/"rmit_store_db"/"rmit_store_db", getenv("DBPort")/' webapp/index.php && \
-            ansible-playbook ${BUILDFILEPATH} && \
-            ansible-playbook ${PULLFILEPATH}
-            ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+    stages {
+        stage('Pull code from git repository') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/vvd0502/COSC2767-RMIT-Store']], poll: true])
+            }
         }
+
+        stage('Send files over SSH') {
+            steps {
+                script {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
+                        DBIP='172.31.40.138'
+                        BUILDFILEPATH='Ansible/buildAndPushTest.yml'
+                        PULLFILEPATH='Ansible/pullAndRunTest.yml'
+
+                        sed -i "s/'db_admin'@'localhost'/'db_admin'@'${DBIP}'/g" webapp/sql-scripts/sql-script.sql && \
+                        sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php && \
+                        sed -i 's/"rmit_store_db"/"rmit_store_db", getenv("DBPort")/' webapp/index.php && \
+                        ansible-playbook ${BUILDFILEPATH} && \
+                        ansible-playbook ${PULLFILEPATH}
+                    ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
+
         stage('Test') {
-            echo 'Testing'
-            sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'sleep 15 ; sh Ansible/runTest.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            steps {
+                echo 'Testing'
+                script {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'sleep 15 ; sh Ansible/runTest.sh', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
         }
     }
 }
