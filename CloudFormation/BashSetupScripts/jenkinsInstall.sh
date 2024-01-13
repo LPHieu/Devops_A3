@@ -8,6 +8,8 @@ yum install git -y
 #in /etc/ssh/sshd_config, change "PasswordAuthentication no" to "PasswordAuthentication yes" to turn on password authentication in ssh
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 
+service sshd restart
+
 useradd ansibleadmin
 #set password for ansibleadmin as 123
 echo "123" | passwd --stdin ansibleadmin

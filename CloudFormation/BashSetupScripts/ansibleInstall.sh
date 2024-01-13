@@ -54,11 +54,13 @@ sleep 60
 
 #copy ssh key to all hosts
 sudo su - ansibleadmin
-ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -N "" << EOF
+echo "123" | sshpass ssh-copy-id $ansibleServerIp
 echo "123" | sshpass ssh-copy-id $jenkinsServerIp
 echo "123" | sshpass ssh-copy-id $dockerProdIp
 echo "123" | sshpass ssh-copy-id $dockerTestIp
 echo "123" | sshpass ssh-copy-id $serverDBIp
+EOF
 
 
 # #change hostname to ansible-server in /etc/hostname
