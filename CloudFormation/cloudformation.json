@@ -33,6 +33,13 @@
                 }
             }
         },
+        "JenkinsIP" : {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Properties" : {
+                "AllocationId" : "CHANGE",
+                "InstanceId" : { "Ref" : "Jenkins" }
+            }
+        },
         "Ansible": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
@@ -64,6 +71,13 @@
                         ]
                     }
                 }
+            }
+        },
+        "AnsibleIP" : {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Properties" : {
+                "AllocationId" : "CHANGE",
+                "InstanceId" : { "Ref" : "Ansible" }
             }
         },
         "MariaDB": {
@@ -99,6 +113,13 @@
                 }
             }
         },
+        "MariaDBIP" : {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Properties" : {
+                "AllocationId" : "CHANGE",
+                "InstanceId" : { "Ref" : "MariaDB" }
+            }
+        },
         "Apache": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
@@ -131,6 +152,13 @@
                     }
                 }
             }
-        }
+        },
+        "ApacheIP" : {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Properties" : {
+                "AllocationId" : "CHANGE",
+                "InstanceId" : { "Ref" : "Apache" }
+            }
+        },
     }
 }
