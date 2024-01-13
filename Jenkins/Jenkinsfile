@@ -1,12 +1,12 @@
 node {
     
     
-    environment {
-        DB_IP = '172.31.40.138'
-        BUILD_FILE_PATH  = 'Ansible/booksAndScripts/buildAndPushTest.yml'
-        PULL_FILE_PATH  = 'Ansible/booksAndScripts/pullAndRunTest.yml'
+   
+        def DB_IP = '172.31.40.138'
+        def BUILD_FILE_PATH  = 'Ansible/booksAndScripts/buildAndPushTest.yml'
+        def PULL_FILE_PATH  = 'Ansible/booksAndScripts/pullAndRunTest.yml'
         
-    }
+    
 
 
         stage('Pull code from git repository') { // for display purposes
