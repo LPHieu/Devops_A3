@@ -20,7 +20,7 @@ node {
             BUILDFILEPATH='Ansible/buildAndPushTest.yml'
             PULLFILEPATH='Ansible/pullAndRunTest.yml'
             
-            sed -i "s/\'db_admin\'@\'localhost\'/\'db_admin\'@\'${DBIP}\'/g" webapp/sql-scripts/sql-script.sql && \
+            sed -i "s/'db_admin'@'localhost'/'db_admin'@'${DBIP}'/g" webapp/sql-scripts/sql-script.sql && \
             sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php && \
             sed -i 's/"rmit_store_db"/"rmit_store_db", getenv("DBPort")/' webapp/index.php && \
             ansible-playbook ${BUILDFILEPATH} && \
