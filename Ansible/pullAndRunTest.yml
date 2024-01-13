@@ -6,7 +6,7 @@
     - name: cleanup old image
       shell: docker stop rmit-store-test && docker rm rmit-store-test && docker rmi -f vvd0502/rmit-store-test
       ignore_errors: true
-      
+
     - name: pull and build run docker container on webapp server
       community.docker.docker_container:
         name: rmit-store-test
@@ -16,7 +16,7 @@
         detach: true
         pull: yes
         ports:
-          - "8081:80" 
+          - "8081:80"
 
 - hosts: dbserver
   become: true
@@ -25,7 +25,7 @@
     - name: cleanup old image
       shell: docker stop rmit-store-test-db && docker rm rmit-store-test-db && docker rmi -f vvd0502/rmit-store-test-db
       ignore_errors: true
-  
+
     - name: pull and build run docker container on test db server
       community.docker.docker_container:
         name: rmit-store-test-db
@@ -35,4 +35,4 @@
         detach: true
         pull: yes
         ports:
-          - "8081:3306" 
+          - "8081:3306"

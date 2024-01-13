@@ -1,4 +1,10 @@
 #!/bin/bash
+dockerTestIp="34.194.241.77"
+dockerProdIp="54.197.44.45"
+serverDBIp="3.212.208.35"
+jenkinsServerIp="44.212.190.21"
+ansibleServerIp="34.226.35.32"
+
 useradd ansibleadmin
 #set password for ansibleadmin as 123
 echo "123" | passwd --stdin ansibleadmin
@@ -20,6 +26,18 @@ sudo yum install docker -y
 sudo usermod -aG docker ansibleadmin
 
 #Move playbooks and dockerfiles to /home/ansibleadmin
+
+#Setup ansible hosts file
+echo "[ansibleserver]" > /etc/ansible/hosts
+echo $ansibleServerIp >> /etc/ansible/hosts
+echo "[dockerservertest]" >> /etc/ansible/hosts
+echo $dockerTestIp >> /etc/ansible/hosts
+echo "[dockerserverprod]" >> /etc/ansible/hosts
+echo $dockerProdIp >> /etc/ansible/hosts
+echo "[mariadb]" >> /etc/ansible/hosts
+echo $serverDBIp >> /etc/ansible/hosts
+echo "[jenkinsserver]" >> /etc/ansible/hosts
+echo $jenkinsServerIp >> /etc/ansible/hosts
 
 #Move ansible folder to /home/ansibleadmin
 cp -r ~/Devops_A3/Ansible /home/ansibleadmin
