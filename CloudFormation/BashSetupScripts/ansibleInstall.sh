@@ -46,6 +46,9 @@ cp -r ~/Devops_A3/Ansible /home/ansibleadmin
 #Move Dockerfiles to /home/ansibleadmin
 cp -r ~/Devops_A3/DockerFiles /home/ansibleadmin
 
+#Move UnitTest to /home/ansibleadmin
+cp -r ~/Devops_A3/UnitTest /home/ansibleadmin
+
 #wait other instance to be done
 sleep 60
 
