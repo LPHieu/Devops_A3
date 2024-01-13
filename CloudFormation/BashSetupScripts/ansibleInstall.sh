@@ -29,15 +29,15 @@ sudo usermod -aG docker ansibleadmin
 
 #Setup ansible hosts file
 echo "[ansibleserver]" > /etc/ansible/hosts
-echo ansibleServerIp >> /etc/ansible/hosts
+echo $ansibleServerIp >> /etc/ansible/hosts
 echo "[dockerservertest]" >> /etc/ansible/hosts
-echo dockerserverTest >> /etc/ansible/hosts
+echo $dockerTestIp >> /etc/ansible/hosts
 echo "[dockerserverprod]" >> /etc/ansible/hosts
-echo dockerserverProd >> /etc/ansible/hosts
+echo $dockerProdIp >> /etc/ansible/hosts
 echo "[mariadb]" >> /etc/ansible/hosts
-echo serverDBIp >> /etc/ansible/hosts
+echo $serverDBIp >> /etc/ansible/hosts
 echo "[jenkinsserver]" >> /etc/ansible/hosts
-echo jenkinsServerIp >> /etc/ansible/hosts
+echo $jenkinsServerIp >> /etc/ansible/hosts
 
 #Move ansible folder to /home/ansibleadmin
 cp -r ~/Devops_A3/Ansible /home/ansibleadmin
