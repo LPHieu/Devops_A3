@@ -22,10 +22,10 @@ sudo usermod -aG docker ansibleadmin
 #Move playbooks and dockerfiles to /home/ansibleadmin
 
 #Move ansible folder to /home/ansibleadmin
-mv Devops_A3/Ansible /home/ansibleadmin
+cp ./Devops_A3/Ansible /home/ansibleadmin
 
 #Move Dockerfiles to /home/ansibleadmin
-mv Devops_A3/Dockerfiles /home/ansibleadmin
+cp ./Devops_A3/Dockerfiles /home/ansibleadmin
 
 # #change hostname to ansible-server in /etc/hostname
 # echo "ansible-server" > /etc/hostname
