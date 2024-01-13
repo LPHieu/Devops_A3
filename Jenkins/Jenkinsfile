@@ -22,7 +22,7 @@ node {
             sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php &&\
             sed -i 's/"rmit_store_db"/"rmit_store_db", getenv("DBPort")/' webapp/index.php &&\
             ansible-playbook ${BUILD_FILE_PATH} &&\
-            ansible-playbook ${PULL_FILE_PATH} &&\
+            ansible-playbook ${PULL_FILE_PATH}
             ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             
            
