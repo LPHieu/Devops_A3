@@ -18,9 +18,10 @@
   tasks:
     - name: Delete images on control node
       shell: if [[ $(docker images -qa) ]]; then docker rmi -f $(docker images -qa); fi
+      ignore_errors: true
 
     - name: move webapp dockerfile
-      shell: mv -f /home/ansibleadmin/DockerFiles/DB/Dockerfile /home/ansibleadmin/webapp/
+      shell: cp /home/ansibleadmin/DockerFiles/PHP/Dockerfile /home/ansibleadmin/webapp/
 
 
     - name: build and push docker test webap image to docker hub
@@ -37,7 +38,7 @@
         source: build
 
     - name: Copy db dockerfile
-      shell: mv -f /home/ansibleadmin/DockerFiles/PHP/Dockerfile /home/ansibleadmin/webapp/
+      shell: cp /home/ansibleadmin/DockerFiles/DB/Dockerfile /home/ansibleadmin/webapp/
 
     - name: build and push docker test db image to docker hub
       community.docker.docker_image:
