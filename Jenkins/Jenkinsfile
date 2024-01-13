@@ -1,16 +1,13 @@
 
 
 node {
-    
-
-
-    
-
+    triggers {
+    pollSCM('* * * * *')
+    }
 
         stage('Pull code from git repository') { // for display purposes
             
-            git branch: 'main', url: 'https://github.com/vvd0502/COSC2767-RMIT-Store'
-    
+            checkout(scm : [$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/vvd0502/COSC2767-RMIT-Store']]], poll: true)
         }
         stage('Send files over SSH') {
             
