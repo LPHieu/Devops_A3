@@ -7,7 +7,7 @@ node {
         PULL_FILE_PATH  = 'Ansible/booksAndScripts/pullAndRunTest.yml'
         
     }
-    stages {
+
 
         stage('Pull code from git repository') { // for display purposes
             
@@ -18,10 +18,10 @@ node {
             
             
             sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
-            sed -i "s/\'db_admin\'@\'localhost\'/\'db_admin\'@\'${DB_IP}\'/g" webapp/sql-scripts/sql-script.sql &&\
-            sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php &&\
-            sed -i 's/"rmit_store_db"/"rmit_store_db", getenv("DBPort")/' webapp/index.php &&\
-            ansible-playbook ${BUILD_FILE_PATH} &&\
+            sed -i "s/\'db_admin\'@\'localhost\'/\'db_admin\'@\'${DB_IP}\'/g" webapp/sql-scripts/sql-script.sql && \
+            sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php && \
+            sed -i 's/"rmit_store_db"/"rmit_store_db", getenv("DBPort")/' webapp/index.php && \
+            ansible-playbook ${BUILD_FILE_PATH} && \
             ansible-playbook ${PULL_FILE_PATH}
             ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             
@@ -31,6 +31,6 @@ node {
             echo "Testing"
         }
             
-    }
+    
     
 }
