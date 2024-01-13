@@ -1,0 +1,48 @@
+---
+- name: run test
+  hosts: testserver
+  gather_facts: true
+
+  tasks:
+  - name: test 200
+    uri:
+      url: http://{{ ansible_default_ipv4.address }}:8081
+      status_code: 200
+
+  - name: run unitTest
+    uri:
+      url: http://{{ ansible_default_ipv4.address }}:8081/tests.php
+      return_content: true
+    register: unitTest
+    changed_when: false
+
+  - name: Copy unit test result to file
+    copy:
+      content: > 
+        "{{ unitTest.content }}"
+      dest: unitTest.txt
+
+  - name: read second last line
+    shell: tail -n 3 unitTest.txt | head -n 1
+    register: percent
+
+  - name: read last line
+    shell: tail -n 2 unitTest.txt | head -n 1
+    register: fails
+
+  - name: assert unitTest result
+    assert:
+      that: percent.stdout | int >= 100
+      fail_msg: "{{ percent.stdout }}% unitTest passed; {{ fails.stdout }}"
+      success_msg: "{{ percent.stdout }}% unitTest passed"
+
+  - name: get UI content
+    uri:
+      url: http://{{ ansible_default_ipv4.address }}:8081
+      return_content: true
+    register: web
+
+  - name: integration test
+    assert:
+      that: "'Database connection error' not in web.content"
+      fail_msg: "Database connection error."
