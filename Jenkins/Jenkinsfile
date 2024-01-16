@@ -27,7 +27,7 @@ pipeline {
                         sed -i "s/'db_admin'@'localhost'/'db_admin'@'${TEST_SERVER_IP}'/g" webapp/sql-scripts/temp.sql ;
                         tail -n ${lineNum} webapp/sql-scripts/sql-script.sql >> webapp/sql-scripts/temp.sql
                         sed -i "s/'db_admin'@'localhost'/'db_admin'@'${PROD_SERVER_IP}'/g" webapp/sql-scripts/temp.sql ;
-                        mv webapp/sql-scripts/temp.sql webapp/sql-scripts/sql-script.sql
+                        mv webapp/sql-scripts/temp.sql webapp/sql-scripts/sql-script.sql ;
                                                 
                         sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php ;
                         sed -i 's/"rmit_store_db"/"rmit_store_db_test", getenv("DBPort")/' webapp/index.php ;
