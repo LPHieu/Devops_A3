@@ -19,20 +19,21 @@
           - "8081:80"
 
 - hosts: dbserver
-  become: true
 
   tasks:
-    - name: cleanup old image
-      shell: docker stop rmit-store-test-db && docker rm rmit-store-test-db && docker rmi -f vvd0502/rmit-store-test-db
+    - name: check for running container
+      shell: if [ $(docker ps -a --filter "name=rmit-store-db-container") ] ; then return 0 ; fi
+      register: dbRunning
       ignore_errors: true
 
     - name: pull and build run docker container on test db server
       community.docker.docker_container:
-        name: rmit-store-test-db
-        image: vvd0502/rmit-store-test-db
+        name: rmit-store-db-container
+        image: vvd0502/rmit-store-db
         state: started
         recreate: yes
         detach: true
         pull: yes
         ports:
           - "8081:3306"
+        when: dbRunning.rc == 0
