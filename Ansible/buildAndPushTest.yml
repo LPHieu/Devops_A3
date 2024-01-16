@@ -12,6 +12,14 @@
       ansible.builtin.service:
         name: docker
         state: started
+
+- hosts: dbserver
+
+  tasks:
+    - name: check for running database
+      shell: if [ $(docker ps -a --filter "name=rmit-store-db-container") ] ; then return 0 ; fi
+      register: dbRunning
+  
 - hosts: ansibleserver
   become: true
 
@@ -43,16 +51,18 @@
 
     - name: Copy db dockerfile
       shell: cp /home/ansibleadmin/DockerFiles/DB/Dockerfile /home/ansibleadmin/webapp/
+      when: dbRunning.rc == 0
 
     - name: build and push docker test db image to docker hub
       community.docker.docker_image:
-        name: rmit-store-test-db
+        name: rmit-store-db
         build:
           path: /home/ansibleadmin/webapp
           pull: true
         state: present
         tag: latest
         force_tag: true
-        repository: vvd0502/rmit-store-test-db
+        repository: vvd0502/rmit-store-db
         push: yes
         source: build
+        when: dbRunning.rc == 0
