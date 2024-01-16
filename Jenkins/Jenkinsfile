@@ -21,13 +21,13 @@ pipeline {
                         BUILDFILEPATH='Ansible/buildAndPushTest.yml'
                         PULLFILEPATH='Ansible/pullAndRunTest.yml'
 
-                        cp webapp/sql-scripts/sql-script.sql webapp/sql-scripts/temp.sql ;
-                        sed -i "s/'db_admin'@'localhost'/'db_admin'@'${TEST_SERVER_IP}'/g" webapp/sql-scripts/sql-script.sql ;
                         sed -i 's/rmit_store_db/rmit_store_db_test/g' webapp/sql-scripts/sql-script.sql ;
+                        lineNum="$(nl webapp/sql-scripts/sql-script.sql | awk -v pattern="CREATE USER" '{print $1}')"
+                        head -n ${lineNum} webapp/sql-scripts/sql-script.sql > webapp/sql-scripts/temp.sql
+                        sed -i "s/'db_admin'@'localhost'/'db_admin'@'${TEST_SERVER_IP}'/g" webapp/sql-scripts/temp.sql ;
+                        tail -n ${lineNum} webapp/sql-scripts/sql-script.sql >> webapp/sql-scripts/temp.sql
                         sed -i "s/'db_admin'@'localhost'/'db_admin'@'${PROD_SERVER_IP}'/g" webapp/sql-scripts/temp.sql ;
-
-                        cat webapp/sql-scripts/temp.sql >> webapp/sql-scripts/sql-script.sql ;
-                        rm webapp/sql-scripts/temp.sql ;
+                        mv webapp/sql-scripts/temp.sql webapp/sql-scripts/sql-script.sql
                                                 
                         sed -i 's/"localhost"/getenv("DBHost")/' webapp/index.php ;
                         sed -i 's/"rmit_store_db"/"rmit_store_db_test", getenv("DBPort")/' webapp/index.php ;
