@@ -39,6 +39,7 @@ wget $JENKINS_ADDRESS/jnlpJars/jenkins-cli.jar
 PASSWORD=$(cat /var/lib/jenkins/secrets/initialAdminPassword)
 #login jenkins 
 java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD install-plugin publish-over-ssh github workflow-aggregator 
+cat  /root/Devops_A3/Jenkins/job.xml | java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD create-job Assessment3Job
 
 service jenkins restart
 
