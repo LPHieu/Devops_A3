@@ -36,7 +36,7 @@
         ignore_errors: true
 
       - name: move webapp dockerfile
-        shell: cp /home/ansibleadmin/DockerFiles/PHP/Dockerfile /home/ansibleadmin/webapp/
+        shell: cp /home/ansibleadmin/DockerFiles/PHP/test/Dockerfile /home/ansibleadmin/webapp/
 
       - name: move webapp dockerfile
         shell: cp /home/ansibleadmin/UnitTest/tests.php /home/ansibleadmin/UnitTest/functions.php /home/ansibleadmin/webapp/

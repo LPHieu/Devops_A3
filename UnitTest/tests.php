@@ -21,7 +21,7 @@ $link = mysqli_connect(
     getenv("DBHost"),
     "db_admin",
     "rmit_password",
-    "rmit_store_db",
+    "rmit_store_db_test",
     getenv("DBPort")
 );
 
