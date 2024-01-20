@@ -56,17 +56,17 @@
 
       - name: check db status
         debug:
-            msg: "db_status on dbserver is {{ hostvars[item]['db_status'] }}"
-        with_items: "{{ groups['dbserver'] }}"
+            msg: "db_status on mariadb is {{ hostvars[item]['db_status'] }}"
+        with_items: "{{ groups['mariadb'] }}"
 
       - name: register new value for db status
         shell: echo "{{ hostvars[item]['db_status'] }}";
-        with_items: "{{ groups['dbserver'] }}"
+        with_items: "{{ groups['mariadb'] }}"
         register: db_status
 
       - name: check my new status
         debug:
-            msg: "db_status on dbserver is {{db_status.results[0].stdout}}"
+            msg: "db_status on mariadb is {{db_status.results[0].stdout}}"
 
       - name: Copy db dockerfile
         shell: cp /home/ansibleadmin/DockerFiles/DB/Dockerfile /home/ansibleadmin/webapp/
