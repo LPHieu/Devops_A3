@@ -55,11 +55,11 @@ sleep 60
 #copy ssh key to all hosts
 su - ansibleadmin
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -N "" << EOF
-echo "123" | sshpass ssh-copy-id $ansibleServerIp
-echo "123" | sshpass ssh-copy-id $jenkinsServerIp
-echo "123" | sshpass ssh-copy-id $dockerProdIp
-echo "123" | sshpass ssh-copy-id $dockerTestIp
-echo "123" | sshpass ssh-copy-id $serverDBIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $ansibleServerIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $jenkinsServerIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $dockerProdIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $dockerTestIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $serverDBIp
 EOF
 
 
