@@ -66,7 +66,7 @@
                                 "git clone -b Trung https://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@github.com/pigergast/Devops_A3.git\n",
                                 "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x ansibleInstall.sh\n",
-                                "./ansibleInstall.sh\n"
+                                ". ./ansibleInstall.sh\n"
                               ]
                         ]
                     }

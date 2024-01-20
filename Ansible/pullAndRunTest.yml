@@ -10,7 +10,7 @@
       - name: pull and build run docker container on webapp server
         community.docker.docker_container:
             name: rmit-store-test
-            image: trung/rmit-store-test
+            image: ttrung/rmit-store-test
             state: started
             recreate: yes
             detach: true
