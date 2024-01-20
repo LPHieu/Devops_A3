@@ -39,21 +39,20 @@
         shell: cp /home/ansibleadmin/DockerFiles/PHP/Dockerfile /home/ansibleadmin/webapp/
 
       - name: move webapp dockerfile
-        shell:
-            cp /home/ansibleadmin/UnitTest/tests.php /home/ansibleadmin/UnitTest/functions.php /home/ansibleadmin/webapp/
+        shell: cp /home/ansibleadmin/UnitTest/tests.php /home/ansibleadmin/UnitTest/functions.php /home/ansibleadmin/webapp/
 
-            #    - name: build and push docker test webap image to docker hub
-            #      community.docker.docker_image:
-            #        name: rmit-store-test
-            #        build:
-            #          path: /home/ansibleadmin/webapp
-            #          pull: true
-            #        tag: latest
-            #        force_tag: true
-            #        state: present
-            #        repository: vvd0502/rmit-store-test
-            #        push: yes
-            #        source: build
+      - name: build and push docker test webap image to docker hub
+        community.docker.docker_image:
+            name: rmit-store-test
+            build:
+                path: /home/ansibleadmin/webapp
+                pull: true
+            tag: latest
+            force_tag: true
+            state: present
+            repository: vvd0502/rmit-store-test
+            push: yes
+            source: build
 
       - name: check db status
         debug:
