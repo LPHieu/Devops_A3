@@ -55,4 +55,18 @@ pipeline {
             }
         }
     }
+    post {
+        failure {
+            mail to: 's3877375@rmit.edu.vn',
+                 cc: 's3878698@rmit.edu.vn, s3891724@rmit.edu.vn, s3878281@rmit.edu.vn',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        unstable {
+            mail to: 's3877375@rmit.edu.vn',
+                 cc: 's3878698@rmit.edu.vn, s3891724@rmit.edu.vn, s3878281@rmit.edu.vn',
+                 subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
+        }
+    }
 }
