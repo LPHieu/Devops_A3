@@ -1,6 +1,6 @@
 ---
 - name: run test
-  hosts: testserver
+  hosts: dockerservertest
   gather_facts: true
 
   tasks:
