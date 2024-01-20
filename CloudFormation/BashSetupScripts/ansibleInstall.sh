@@ -53,7 +53,7 @@ cp -r ~/Devops_A3/UnitTest /home/ansibleadmin
 sleep 60
 
 #copy ssh key to all hosts
-sudo su - ansibleadmin
+su - ansibleadmin
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -N "" << EOF
 echo "123" | sshpass ssh-copy-id $ansibleServerIp
 echo "123" | sshpass ssh-copy-id $jenkinsServerIp
