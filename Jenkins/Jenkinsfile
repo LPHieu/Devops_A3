@@ -16,8 +16,8 @@ pipeline {
             steps {
                 script {
                     sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
-                        TEST_SERVER_IP='172.31.40.138'
-                        PROD_SERVER_IP='172.31.40.140'
+                        TEST_SERVER_IP='54.174.242.128'
+                        PROD_SERVER_IP='54.144.197.26'
                         BUILDFILEPATH='Ansible/buildAndPushTest.yml'
                         PULLFILEPATH='Ansible/pullAndRunTest.yml'
                         PRIVILEGES="GRANT ALL PRIVILEGES ON *.* TO 'db_admin'@'$TEST_SERVER_IP', 'db_admin'@'$PROD_SERVER_IP';"

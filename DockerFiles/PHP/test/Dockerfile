@@ -1,5 +1,5 @@
 FROM php:8.3-apache
-ENV DBHost "172.31.81.35"
+ENV DBHost "44.218.193.34"
 ENV DBPort "8081"
 WORKDIR /var/www/html
 COPY . .

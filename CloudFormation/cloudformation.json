@@ -7,7 +7,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE"
+                    "sg-06b94daa27833ca54"
                 ],
                 "Tags": [
                     {
@@ -23,7 +23,7 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "git clone -b Trung https://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@github.com/pigergast/Devops_A3.git\n",
                                 "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x jenkinsInstall.sh\n",
                                 "./jenkinsInstall.sh\n"
@@ -36,7 +36,7 @@
         "JenkinsIP" : {
             "Type" : "AWS::EC2::EIPAssociation",
             "Properties" : {
-                "AllocationId" : "CHANGE",
+                "AllocationId" : "eipalloc-0a51a64ae2a30f4cf",
                 "InstanceId" : { "Ref" : "Jenkins" }
             }
         },
@@ -47,7 +47,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE"
+                    "sg-06b94daa27833ca54"
                 ],
                 "Tags": [
                     {
@@ -63,7 +63,7 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "git clone -b Trung https://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@github.com/pigergast/Devops_A3.git\n",
                                 "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x ansibleInstall.sh\n",
                                 "./ansibleInstall.sh\n"
@@ -76,7 +76,7 @@
         "AnsibleIP" : {
             "Type" : "AWS::EC2::EIPAssociation",
             "Properties" : {
-                "AllocationId" : "CHANGE",
+                "AllocationId" : "eipalloc-015ccee523f158cce",
                 "InstanceId" : { "Ref" : "Ansible" }
             }
         },
@@ -87,7 +87,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE"
+                    "sg-025d4258004d9faea"
                 ],
                 "Tags": [
                     {
@@ -103,7 +103,7 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "git clone -b Trung https://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@github.com/pigergast/Devops_A3.git\n",
                                 "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x mariaDBInstall.sh\n",
                                 "./mariaDBInstall.sh\n"
@@ -116,7 +116,7 @@
         "MariaDBIP" : {
             "Type" : "AWS::EC2::EIPAssociation",
             "Properties" : {
-                "AllocationId" : "CHANGE",
+                "AllocationId" : "eipalloc-0fbc36c0a7b37ec7e",
                 "InstanceId" : { "Ref" : "MariaDB" }
             }
         },
@@ -127,7 +127,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE"
+                    "sg-025d4258004d9faea"
                 ],
                 "Tags": [
                     {
@@ -143,7 +143,7 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "git clone -b Trung https://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@github.com/pigergast/Devops_A3.git\n",
                                 "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x apachePHPInstallProd.sh\n",
                                 "./apachePHPInstallProd.sh\n"
@@ -156,7 +156,7 @@
         "ApacheIP" : {
             "Type" : "AWS::EC2::EIPAssociation",
             "Properties" : {
-                "AllocationId" : "CHANGE",
+                "AllocationId" : "eipalloc-031673839525302b6",
                 "InstanceId" : { "Ref" : "Apache" }
             }
         },
@@ -167,7 +167,7 @@
                 "InstanceType": "t2.micro",
                 "KeyName": "asm3_kp",
                 "SecurityGroupIds": [
-                    "CHANGE"
+                    "sg-025d4258004d9faea"
                 ],
                 "Tags": [
                     {
@@ -183,7 +183,7 @@
                                 "#!/bin/bash\n",
                                 "yum install git -y\n",
                                 "cd ~\n",
-                                "git clone https://CHANGE@github.com/pigergast/Devops_A3.git\n",
+                                "git clone -b Trung https://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@github.com/pigergast/Devops_A3.git\n",
                                 "cd Devops_A3/CloudFormation/BashSetupScripts\n",
                                 "chmod +x apachePHPInstallTest.sh\n",
                                 "./apachePHPInstallTest.sh\n"
@@ -196,7 +196,7 @@
         "ApacheTestIP" : {
             "Type" : "AWS::EC2::EIPAssociation",
             "Properties" : {
-                "AllocationId" : "CHANGE",
+                "AllocationId" : "eipalloc-0cb518569123435ca",
                 "InstanceId" : { "Ref" : "ApacheTest" }
             }
         },

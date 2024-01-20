@@ -1,9 +1,9 @@
 #!/bin/bash
-dockerTestIp="34.194.241.77"
-dockerProdIp="54.197.44.45"
-serverDBIp="3.212.208.35"
-jenkinsServerIp="44.212.190.21"
-ansibleServerIp="34.226.35.32"
+dockerTestIp="54.174.242.128"
+dockerProdIp="54.144.197.26"
+serverDBIp="44.218.193.34"
+jenkinsServerIp="100.24.188.25"
+ansibleServerIp="3.223.20.139"
 
 useradd ansibleadmin
 #set password for ansibleadmin as 123
@@ -27,7 +27,7 @@ sudo yum install docker -y
 #add ansibleadmin to docker group
 sudo usermod -aG docker ansibleadmin
 #login docker for pushing image
-docker login --username CHANGE --password CHANGE
+docker login --username ttrung --password tranquoctrung
 
 #Move playbooks and dockerfiles to /home/ansibleadmin
 
