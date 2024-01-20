@@ -20,8 +20,6 @@ service sshd reload
 
 #install ansible
 amazon-linux-extras install ansible2 -y
-#install ansible docker module
-ansible-galaxy collection install community.docker
 #install docker
 sudo yum install docker -y
 #add ansibleadmin to docker group
@@ -63,6 +61,7 @@ echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFi
 echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $dockerTestIp
 echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $serverDBIp
 ansible all -m ping --ssh-common-args='-o StrictHostKeyChecking=no'
+ansible-galaxy collection install community.docker
 EOF
 
 
