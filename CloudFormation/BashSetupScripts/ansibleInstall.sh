@@ -20,10 +20,14 @@ service sshd reload
 
 #install ansible
 amazon-linux-extras install ansible2 -y
+#install ansible docker module
+ansible-galaxy collection install community.docker
 #install docker
 sudo yum install docker -y
 #add ansibleadmin to docker group
 sudo usermod -aG docker ansibleadmin
+#login docker for pushing image
+docker login --username CHANGE --password CHANGE
 
 #Move playbooks and dockerfiles to /home/ansibleadmin
 
@@ -36,8 +40,6 @@ echo "[dockerserverprod]" >> /etc/ansible/hosts
 echo $dockerProdIp >> /etc/ansible/hosts
 echo "[mariadb]" >> /etc/ansible/hosts
 echo $serverDBIp >> /etc/ansible/hosts
-echo "[jenkinsserver]" >> /etc/ansible/hosts
-echo $jenkinsServerIp >> /etc/ansible/hosts
 
 
 #Move ansible folder to /home/ansibleadmin
