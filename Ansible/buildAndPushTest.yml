@@ -50,7 +50,7 @@
             tag: latest
             force_tag: true
             state: present
-            repository: vvd0502/rmit-store-test
+            repository: ttrung/rmit-store-test
             push: yes
             source: build
 
@@ -81,7 +81,7 @@
             state: present
             tag: latest
             force_tag: true
-            repository: vvd0502/rmit-store-db
+            repository: ttrung/rmit-store-db
             push: yes
             source: build
         when: "db_status.results[0].stdout != '0'"

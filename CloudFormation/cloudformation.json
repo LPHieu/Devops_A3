@@ -199,6 +199,6 @@
                 "AllocationId" : "eipalloc-0cb518569123435ca",
                 "InstanceId" : { "Ref" : "ApacheTest" }
             }
-        },
+        }
     }
 }
