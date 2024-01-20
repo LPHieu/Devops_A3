@@ -4,13 +4,13 @@
 
   tasks:
       - name: cleanup old image
-        shell: docker stop rmit-store-test && docker rm rmit-store-test && docker rmi -f vvd0502/rmit-store-test
+        shell: docker stop rmit-store-test && docker rm rmit-store-test && docker rmi -f ttrung/rmit-store-test
         ignore_errors: true
 
       - name: pull and build run docker container on webapp server
         community.docker.docker_container:
             name: rmit-store-test
-            image: vvd0502/rmit-store-test
+            image: trung/rmit-store-test
             state: started
             recreate: yes
             detach: true
@@ -41,7 +41,7 @@
       - name: pull and build run docker container on test db server
         community.docker.docker_container:
             name: rmit-store-db
-            image: vvd0502/rmit-store-db
+            image: ttrung/rmit-store-db
             state: started
             recreate: no
             detach: true

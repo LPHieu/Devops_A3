@@ -29,7 +29,7 @@
         build:
           path: /home/ansibleadmin/webapp
         state: present
-        repository: vvd0502/rmit-store-test
+        repository: ttrung/rmit-store-test
         push: yes
         source: build
 
@@ -42,6 +42,6 @@
         build:
           path: /home/ansibleadmin/webapp
         state: present
-        repository: vvd0502/rmit-store-test-db
+        repository: ttrung/rmit-store-test-db
         push: yes
         source: build
