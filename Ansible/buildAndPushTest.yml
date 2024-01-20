@@ -13,7 +13,7 @@
             name: docker
             state: started
 
-- hosts: dbserver
+- hosts: mariadb
   gather_facts: true
   tasks:
       - name: check for running database
