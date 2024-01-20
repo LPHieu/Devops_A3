@@ -3,37 +3,49 @@
   become: true
 
   tasks:
-    - name: cleanup old image
-      shell: docker stop rmit-store-test && docker rm rmit-store-test && docker rmi -f vvd0502/rmit-store-test
-      ignore_errors: true
+      - name: cleanup old image
+        shell: docker stop rmit-store-test && docker rm rmit-store-test && docker rmi -f vvd0502/rmit-store-test
+        ignore_errors: true
 
-    - name: pull and build run docker container on webapp server
-      community.docker.docker_container:
-        name: rmit-store-test
-        image: vvd0502/rmit-store-test
-        state: started
-        recreate: yes
-        detach: true
-        pull: yes
-        ports:
-          - "8081:80"
+      - name: pull and build run docker container on webapp server
+        community.docker.docker_container:
+            name: rmit-store-test
+            image: vvd0502/rmit-store-test
+            state: started
+            recreate: yes
+            detach: true
+            pull: yes
+            ports:
+                - "8081:80"
 
 - hosts: dbserver
 
   tasks:
-    - name: check for running container
-      shell: if [ $(docker ps -a --filter "name=rmit-store-db-container") ] ; then return 0 ; fi
-      register: dbRunning
-      ignore_errors: true
+      - name: check for running container
+        shell: docker ps -aq --filter "name=rmit-store-db"
+        ignore_errors: true
+        register: db_results
 
-    - name: pull and build run docker container on test db server
-      community.docker.docker_container:
-        name: rmit-store-db-container
-        image: vvd0502/rmit-store-db
-        state: started
-        recreate: yes
-        detach: true
-        pull: yes
-        ports:
-          - "8081:3306"
-        when: dbRunning.rc == 0
+      - name: check db results
+        debug:
+            msg: "db results {{ db_results }}"
+
+      - name: register result to use on other hosts
+        set_fact:
+            db_status: "{{ 0 if db_results.stdout else -1 }}"
+
+      - name: check db status
+        debug:
+            msg: "db status {{ db_status }}"
+
+      - name: pull and build run docker container on test db server
+        community.docker.docker_container:
+            name: rmit-store-db
+            image: vvd0502/rmit-store-db
+            state: started
+            recreate: no
+            detach: true
+            pull: yes
+            ports:
+                - "8081:3306"
+        when: "db_status != '0'"
