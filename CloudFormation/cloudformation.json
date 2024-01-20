@@ -199,6 +199,6 @@
                 "AllocationId" : "CHANGE",
                 "InstanceId" : { "Ref" : "ApacheTest" }
             }
-        },
+        }
     }
 }
