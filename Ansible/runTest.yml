@@ -53,5 +53,7 @@
 
   - name: integration test
     assert:
-      that: "'Database connection error' not in web.content"
+      that: 
+      - "'Database connection error' not in web.content"
+      - "'mysqli_sql_exception' not in web.content"
       fail_msg: "Database connection error."
