@@ -18,16 +18,6 @@ echo "123" | passwd --stdin ansibleadmin
 service jenkins start
 #wait for jenkins to start
 
-MAVEN=https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
-MAVENZIP=apache-maven-3.9.6-bin.tar.gz
-MAVENFOLDER=apache-maven-3.9.6
-# Setup maven
-cd /opt
-wget $MAVEN
-tar -xvzf $MAVENZIP
-mv $MAVENFOLDER maven
-cd ~
-
 #wait for jenkins to start
 sleep 30
 
@@ -39,6 +29,7 @@ wget $JENKINS_ADDRESS/jnlpJars/jenkins-cli.jar
 PASSWORD=$(cat /var/lib/jenkins/secrets/initialAdminPassword)
 #login jenkins 
 java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD install-plugin publish-over-ssh github workflow-aggregator mailer
+cat /root/Devops_A3/Jenkins/job.xml | java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD create-job Assessment3Job
 
 service jenkins restart
 
