@@ -1,0 +1,19 @@
+---
+- hosts: dockerserverprod
+  become: true
+
+  tasks:
+    - name: cleanup old image
+      shell: docker stop rmit-store-prod && docker rm rmit-store-prod && docker rmi -f ttrung/rmit-store-prod
+      ignore_errors: true
+
+    - name: pull and build run docker container on webapp server
+      community.docker.docker_container:
+        name: rmit-store-prod
+        image: ttrung/rmit-store-prod
+        state: started
+        recreate: yes
+        detach: true
+        pull: yes
+        ports:
+          - "8081:80"

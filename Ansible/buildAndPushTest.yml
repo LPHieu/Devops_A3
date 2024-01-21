@@ -3,66 +3,85 @@
   become: true
 
   tasks:
-    - name: check docker install
-      yum:
-        name: docker
-        state: present
+      - name: check docker install
+        yum:
+            name: docker
+            state: present
 
-    - name: Check Docker service status
-      ansible.builtin.service:
-        name: docker
-        state: started
+      - name: Check Docker service status
+        ansible.builtin.service:
+            name: docker
+            state: started
 
-- hosts: dbserver
-
+- hosts: mariadb
+  gather_facts: true
   tasks:
-    - name: check for running database
-      shell: if [ $(docker ps -a --filter "name=rmit-store-db-container") ] ; then return 0 ; fi
-      register: dbRunning
-  
+      - name: check for running database
+        shell: docker ps -aq --filter "name=rmit-store-db"
+        ignore_errors: true
+        register: db_results
+
+      - name: register result to use on other hosts
+        set_fact:
+            db_status: "{{ 0 if db_results.stdout else -1 }}"
+        delegate_to: "{{ inventory_hostname }}"
+
 - hosts: ansibleserver
   become: true
+  gather_facts: true
 
   tasks:
-    - name: Delete images on control node
-      shell: if [[ $(docker images -qa) ]]; then docker rmi -f $(docker images -qa); fi
-      ignore_errors: true
+      - name: Delete images on control node
+        shell: if [[ $(docker images -qa) ]]; then docker rmi -f $(docker images -qa); fi
+        ignore_errors: true
 
-    - name: move webapp dockerfile
-      shell: cp /home/ansibleadmin/DockerFiles/PHP/Dockerfile /home/ansibleadmin/webapp/
+      - name: move webapp dockerfile
+        shell: cp /home/ansibleadmin/DockerFiles/PHP/test/Dockerfile /home/ansibleadmin/webapp/
 
+      - name: move webapp dockerfile
+        shell: cp /home/ansibleadmin/UnitTest/tests.php /home/ansibleadmin/UnitTest/functions.php /home/ansibleadmin/webapp/
 
-    - name: move webapp dockerfile
-      shell: cp /home/ansibleadmin/UnitTest/tests.php /home/ansibleadmin/UnitTest/functions.php /home/ansibleadmin/webapp/
+      - name: build and push docker test webap image to docker hub
+        community.docker.docker_image:
+            name: rmit-store-test
+            build:
+                path: /home/ansibleadmin/webapp
+                pull: true
+            tag: latest
+            force_tag: true
+            state: present
+            repository: ttrung/rmit-store-test
+            push: yes
+            source: build
 
+      - name: check db status
+        debug:
+            msg: "db_status on mariadb is {{ hostvars[item]['db_status'] }}"
+        with_items: "{{ groups['mariadb'] }}"
 
-    - name: build and push docker test webap image to docker hub
-      community.docker.docker_image:
-        name: rmit-store-test
-        build:
-          path: /home/ansibleadmin/webapp
-          pull: true
-        tag: latest
-        force_tag: true
-        state: present
-        repository: vvd0502/rmit-store-test
-        push: yes
-        source: build
+      - name: register new value for db status
+        shell: echo "{{ hostvars[item]['db_status'] }}";
+        with_items: "{{ groups['mariadb'] }}"
+        register: db_status
 
-    - name: Copy db dockerfile
-      shell: cp /home/ansibleadmin/DockerFiles/DB/Dockerfile /home/ansibleadmin/webapp/
-      when: dbRunning.rc == 0
+      - name: check my new status
+        debug:
+            msg: "db_status on mariadb is {{db_status.results[0].stdout}}"
 
-    - name: build and push docker test db image to docker hub
-      community.docker.docker_image:
-        name: rmit-store-db
-        build:
-          path: /home/ansibleadmin/webapp
-          pull: true
-        state: present
-        tag: latest
-        force_tag: true
-        repository: vvd0502/rmit-store-db
-        push: yes
-        source: build
-        when: dbRunning.rc == 0
+      - name: Copy db dockerfile
+        shell: cp /home/ansibleadmin/DockerFiles/DB/Dockerfile /home/ansibleadmin/webapp/
+        when: "db_status.results[0].stdout != '0'"
+
+      - name: build and push docker test image to docker hub
+        community.docker.docker_image:
+            name: rmit-store-db
+            build:
+                path: /home/ansibleadmin/webapp
+                pull: true
+            state: present
+            tag: latest
+            force_tag: true
+            repository: ttrung/rmit-store-db
+            push: yes
+            source: build
+        when: "db_status.results[0].stdout != '0'"

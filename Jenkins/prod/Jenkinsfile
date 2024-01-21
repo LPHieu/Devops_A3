@@ -1,0 +1,25 @@
+pipeline {
+    agent any  // Specify the node where the pipeline should run
+
+    triggers {
+        upstream(upstreamProjects: 'testDeployment', threshold: hudson.model.Result.SUCCESS)
+    }
+
+    stages {
+        stage('build and deploy production') {
+            steps {
+                script {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
+                        BUILDFILEPATH='Ansible/buildAndPushProd.yml'
+                        PULLFILEPATH='Ansible/pullAndRunProd.yml'
+    
+                        sed -i 's/"rmit_store_db_test"/"rmit_store_db"/' webapp/index.php ;
+
+                        ansible-playbook ${BUILDFILEPATH} ;
+                        ansible-playbook ${PULLFILEPATH} ;
+                    ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
+    }
+}
