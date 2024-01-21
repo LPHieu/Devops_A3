@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# RMIT University Vietnam
+# Course: COSC2767 Systems Deployment and Operations
+# Semester: 2023C
+# Assessment: Assignment 3
+# Author: Group 3
+# Created  date: 02/01/2023
+# Last modified: 20/01/2023
+# Acknowledgement: None
+
 wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 amazon-linux-extras install java-openjdk11 -y

@@ -1,3 +1,12 @@
+# RMIT University Vietnam
+# Course: COSC2767 Systems Deployment and Operations
+# Semester: 2023C
+# Assessment: Assignment 3
+# Author: Group 3
+# Created  date: 02/01/2023
+# Last modified: 20/01/2023
+# Acknowledgement: None
+
 # Install Python 3.11 (replace x with the actual version number)
 sudo yum install -y python3.7
 
