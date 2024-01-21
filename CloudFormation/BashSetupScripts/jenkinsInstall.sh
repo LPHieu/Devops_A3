@@ -44,7 +44,8 @@ service jenkins restart
 
 sleep 20
 
-cat /root/Devops_A3/Jenkins/job.xml | java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD create-job Assessment3Job
+cat /root/Devops_A3/Jenkins/job.xml | java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD create-job testDeployment
+cat /root/Devops_A3/Jenkins/prod/job.xml | java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD create-job prodDeployment
 
 # #change hostname to jenkins-server in /etc/hostname
 # echo "jenkins-server" > /etc/hostname
