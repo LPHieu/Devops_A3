@@ -4,31 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 def check_search_form(url, geckodriver_path):
-    # Set up the Firefox options with the path to geckodriver
     options = webdriver.FirefoxOptions()
     options.binary_location = geckodriver_path
-
-    # Initialize the WebDriver
     driver = webdriver.Firefox(options=options, executable_path=geckodriver_path)
 
     try:
-        # Open the specified URL
         driver.get(url)
-
-        # Wait for the "nav_searchFrom" button to be clickable
         search_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CLASS_NAME, "nav_searchFrom"))
         )
-
-        # Click the "nav_searchFrom" button
         search_button.click()
- 
-        # Check if the search bar form shows up
         search_form = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "searchForm"))
         )
-
-        # If the search form is found, return True
         return True
 
     except Exception as e:
@@ -36,14 +24,50 @@ def check_search_form(url, geckodriver_path):
         return False
 
     finally:
-        # Close the WebDriver
+        driver.quit()
+
+def check_links_not_404(links, geckodriver_path):
+    options = webdriver.FirefoxOptions()
+    options.binary_location = geckodriver_path
+    driver = webdriver.Firefox(options=options, executable_path=geckodriver_path)
+
+    try:
+        for link in links:
+            driver.get(link)
+            status_code = driver.execute_script(
+                "return (function() {var xhr = new XMLHttpRequest(); "
+                "xhr.open('HEAD', window.location.href, false); "
+                "xhr.send(); return xhr.status;})();"
+            )
+
+            if status_code == 404:
+                print(f"Error: {link} resulted in a 404 error.")
+            else:
+                print(f"Success: {link} is accessible.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    finally:
         driver.quit()
 
 # Replace the URL with your actual URL
-url = "http://54.82.43.230:8081/"
+base_url = "http://54.174.242.128:8081"
 # Replace the path with the actual path to geckodriver executable
 geckodriver_path = "/path/to/geckodriver"
 
-# Call the function and print the result
-result = check_search_form(url, geckodriver_path)
-print(result)
+# Call the function to check the search form
+result_search_form = check_search_form(base_url, geckodriver_path)
+print(f"Search Form Test Result: {result_search_form}")
+
+# Test the provided links
+links_to_test = [
+    "https://www.campusstore.rmit.edu.au/collections/clothing",
+    "https://www.campusstore.rmit.edu.au/collections/accessories",
+    "https://www.campusstore.rmit.edu.au/collections/stationery",
+    "https://www.campusstore.rmit.edu.au/collections/course",
+    "https://www.campusstore.rmit.edu.au/collections/special-collection",
+    "https://www.campusstore.rmit.edu.au/collections/sale"
+]
+
+check_links_not_404(links_to_test, geckodriver_path)
