@@ -1,9 +1,9 @@
 #!/bin/bash
-dockerTestIp="34.194.241.77"
-dockerProdIp="54.197.44.45"
-serverDBIp="3.212.208.35"
-jenkinsServerIp="44.212.190.21"
-ansibleServerIp="34.226.35.32"
+dockerTestIp="44.219.45.99"
+dockerProdIp="54.88.73.222"
+serverDBIp="35.175.59.34"
+jenkinsServerIp="3.219.10.80"
+ansibleServerIp="18.233.112.13"
 
 useradd ansibleadmin
 #set password for ansibleadmin as 123
