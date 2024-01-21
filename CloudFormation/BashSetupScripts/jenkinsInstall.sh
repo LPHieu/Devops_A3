@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# RMIT University Vietnam
+# Course: COSC2767 Systems Deployment and Operations
+# Semester: 2023C
+# Assessment: Assignment 3
+# Author: Group 3
+# Created  date: 02/01/2023
+# Last modified: 20/01/2023
+# Acknowledgement: None
+
 wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 amazon-linux-extras install java-openjdk11 -y
@@ -18,16 +28,6 @@ echo "123" | passwd --stdin ansibleadmin
 service jenkins start
 #wait for jenkins to start
 
-MAVEN=https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
-MAVENZIP=apache-maven-3.9.6-bin.tar.gz
-MAVENFOLDER=apache-maven-3.9.6
-# Setup maven
-cd /opt
-wget $MAVEN
-tar -xvzf $MAVENZIP
-mv $MAVENFOLDER maven
-cd ~
-
 #wait for jenkins to start
 sleep 30
 
@@ -41,6 +41,8 @@ PASSWORD=$(cat /var/lib/jenkins/secrets/initialAdminPassword)
 java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD install-plugin publish-over-ssh github workflow-aggregator mailer
 
 service jenkins restart
+
+cat /root/Devops_A3/Jenkins/job.xml | java -jar jenkins-cli.jar -s $JENKINS_ADDRESS -auth admin:$PASSWORD create-job Assessment3Job
 
 # #change hostname to jenkins-server in /etc/hostname
 # echo "jenkins-server" > /etc/hostname

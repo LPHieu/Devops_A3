@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# RMIT University Vietnam
+# Course: COSC2767 Systems Deployment and Operations
+# Semester: 2023C
+# Assessment: Assignment 3
+# Author: Group 3
+# Created  date: 02/01/2023
+# Last modified: 20/01/2023
+# Acknowledgement: None
+
 dockerTestIp="54.174.242.128"
 dockerProdIp="54.144.197.26"
 serverDBIp="44.218.193.34"
@@ -56,10 +66,10 @@ sleep 60
 su - ansibleadmin << EOF
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
 echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $ansibleServerIp
-echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $jenkinsServerIp
-echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $dockerProdIp
-echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $dockerTestIp
-echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null@ $serverDBIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $jenkinsServerIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $dockerProdIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $dockerTestIp
+echo "123" | sshpass ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $serverDBIp
 ansible all -m ping --ssh-common-args='-o StrictHostKeyChecking=no'
 ansible-galaxy collection install community.docker
 EOF
